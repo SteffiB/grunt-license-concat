@@ -1,6 +1,6 @@
 # grunt-license-concat
 
-> The best Grunt plugin ever.
+> Concatinate dependency licenses
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -37,47 +37,43 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
+#### options.include
+Type: `Array` or `String`
+Default value: `['dependencies', 'devDependencies', 'peerDepedencies']`
 
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
+A list of dependency types.
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+In this example, we concatenate all dependencies from package.json and write them into the LICENSES file.
+
+[See an example result file](https://github.com/SteffiB/grunt-license-concat/blob/master/example.txt)
 
 ```js
 grunt.initConfig({
   license_concat: {
     options: {},
     files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+      'LICENSES': 'package.json'
+    }
   },
 });
 ```
 
 #### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+In this example, we concatenate only the licenses of the peerDependencies.
 
 ```js
 grunt.initConfig({
   license_concat: {
+    peer: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+      include: 'peerDependencies'
     },
     files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+      'tmp/string_options': 'package.json'
+    }
   },
 });
 ```
